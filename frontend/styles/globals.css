@@ -1,0 +1,34 @@
+@import "./tokens/primitives.css";
+@import "./tokens/semantic.css";
+@import "./tokens/components.css";
+@import "./typography.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: var(--color-selection);
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule-color);
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

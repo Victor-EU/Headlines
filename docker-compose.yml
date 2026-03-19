@@ -1,0 +1,80 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-headlines}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-headlines}
+      POSTGRES_DB: ${POSTGRES_DB:-headlines}
+    command: ["postgres", "-c", "max_connections=50"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-headlines}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./backend/app:/app/app
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: python -m app.worker_main
+    volumes:
+      - ./backend/app:/app/app
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    # Do NOT add auto-reload — APScheduler doesn't support it.
+    # Restart manually: docker compose restart worker
+    deploy:
+      replicas: 1
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - ./frontend/app:/app/app
+      - ./frontend/components:/app/components
+      - ./frontend/lib:/app/lib
+      - ./frontend/styles:/app/styles
+      - ./frontend/public:/app/public
+    ports:
+      - "3000:3000"
+    environment:
+      - INTERNAL_API_URL=${INTERNAL_API_URL:-http://api:8000}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:80}
+      - WATCHPACK_POLLING=true
+    depends_on:
+      - api
+
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - api
+      - frontend
+
+volumes:
+  pgdata:

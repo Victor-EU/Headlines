@@ -1,0 +1,54 @@
+:root {
+  /* Headline */
+  --headline-color: var(--color-text-primary);
+  --headline-size: var(--text-lg);
+  --headline-weight: var(--weight-medium);
+  --headline-leading: var(--leading-normal);
+  --headline-hover-color: var(--color-accent);
+
+  /* Lead headline (news only) */
+  --headline-lead-size: var(--text-2xl);
+  --headline-lead-weight: var(--weight-semibold);
+  --headline-lead-leading: var(--leading-tight);
+
+  /* Metadata (source + time) */
+  --meta-color: var(--color-text-tertiary);
+  --meta-size: var(--text-sm);
+  --meta-leading: var(--leading-relaxed);
+
+  /* Source name */
+  --source-color: var(--color-text-secondary);
+
+  /* Summary (hidden by default, shown on learning) */
+  --summary-color: var(--color-text-secondary);
+  --summary-size: var(--text-sm);
+  --summary-leading: var(--leading-relaxed);
+
+  /* Section labels ("TODAY", "STRATEGY") */
+  --section-label-color: var(--color-text-muted);
+  --section-label-size: var(--text-xs);
+  --section-label-tracking: var(--tracking-wider);
+  --section-label-weight: var(--weight-medium);
+
+  /* Navigation (surface tabs + category tabs) */
+  --nav-color: var(--color-text-muted);
+  --nav-active-color: var(--color-text-primary);
+  --nav-size: var(--text-md);
+  --nav-tracking: var(--tracking-wide);
+
+  /* Briefing/Digest editorial block */
+  --briefing-label-color: var(--color-text-muted);
+  --briefing-text-color: var(--color-text-secondary);
+
+  /* Rules */
+  --rule-color: var(--color-rule);
+
+  /* Layout */
+  --content-max-width: var(--width-content);
+  --content-gutter: var(--width-gutter);
+  --content-column-gap: var(--width-column-gap);
+}
+
+/* Surface-scoped overrides */
+/* No overrides needed for news — it uses the defaults above. */
+/* Learning surface behavioral differences are handled in lib/surfaces.ts, not CSS. */

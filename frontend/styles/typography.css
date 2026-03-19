@@ -1,0 +1,30 @@
+/* GT Sectra — commercial font, Georgia fallback until acquired */
+/* Uncomment when .woff2 files are placed in /public/fonts/ */
+/*
+@font-face {
+  font-family: 'GT Sectra';
+  src: url('/fonts/GTSectra-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Sectra';
+  src: url('/fonts/GTSectra-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
+/* Inter Variable */
+/*
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+*/
