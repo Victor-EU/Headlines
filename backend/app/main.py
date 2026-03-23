@@ -1,9 +1,11 @@
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.auth.admin import router as admin_auth_router
+from app.config import settings
 from app.routers import briefing, categories, events, feed, headlines
 from app.routers import (
     admin_analytics,
@@ -15,17 +17,28 @@ from app.routers import (
     admin_tasks,
 )
 
+logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    scheduler = None
+    if settings.RUN_SCHEDULER:
+        from app.workers.scheduler import start_scheduler
+
+        scheduler = await start_scheduler()
+        logger.info("Scheduler started in API process")
     yield
+    if scheduler:
+        scheduler.shutdown()
+        logger.info("Scheduler shut down")
 
 
 app = FastAPI(title="Headlines API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=settings.ALLOWED_ORIGINS.split(","),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
