@@ -19,7 +19,9 @@ def get_url():
         "DATABASE_URL",
         config.get_main_option("sqlalchemy.url"),
     )
-    # Alembic runs sync migrations — strip asyncpg driver
+    # Normalize for sync driver: postgres:// → postgresql://, strip +asyncpg
+    if url.startswith("postgres://"):
+        url = url.replace("postgres://", "postgresql://", 1)
     return url.replace("+asyncpg", "")
 
 

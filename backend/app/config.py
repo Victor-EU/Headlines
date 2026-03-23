@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     ADMIN_PASSWORD: str = "change-me"
     BRIEFING_TIMEZONE: str = "America/New_York"
     SLACK_WEBHOOK_URL: str = ""
-    ALLOWED_ORIGINS: str = "http://localhost:3000"
+    CORS_ORIGINS: str = "http://localhost:3000"
     RUN_SCHEDULER: bool = False
 
     @property
