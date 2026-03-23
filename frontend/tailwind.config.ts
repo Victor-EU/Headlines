@@ -23,6 +23,7 @@ export default {
         "nav-active": "var(--nav-active-color)",
         "briefing-label": "var(--briefing-label-color)",
         "briefing-text": "var(--briefing-text-color)",
+        "accent-faint": "var(--color-accent-faint)",
       },
       textColor: {
         primary: "var(--color-text-primary)",

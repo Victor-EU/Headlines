@@ -6,7 +6,7 @@ export function Masthead() {
   });
 
   return (
-    <header className="flex items-baseline justify-between py-4 md:py-6">
+    <header className="flex flex-1 items-baseline justify-between py-4 md:py-6">
       <h1 className="font-serif text-headline-lead text-primary">Headlines</h1>
       <time className="text-meta text-muted">{today}</time>
     </header>

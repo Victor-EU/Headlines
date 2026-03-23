@@ -25,7 +25,7 @@ export function HeadlineItem({ headline, config }: Props) {
       )}
       <p className="text-meta mt-1">
         <span className="text-source">{headline.source_name}</span>
-        <span className="text-meta">
+        <span className="text-meta" suppressHydrationWarning>
           {" "}
           · {formatTime(headline.published_at, config.timeFormat)}
         </span>

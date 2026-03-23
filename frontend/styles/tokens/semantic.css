@@ -16,6 +16,7 @@
   /* Structural */
   --color-rule: var(--rule-warm);
   --color-selection: var(--ink-blue-wash);
+  --color-accent-faint: var(--ink-blue-wash);
 
   /* Status */
   --color-status-ok: var(--green-600);
@@ -36,6 +37,7 @@
     --color-accent-hover: var(--blue-muted-light);
     --color-rule: var(--rule-dark);
     --color-selection: var(--blue-wash-dark);
+    --color-accent-faint: var(--blue-wash-dark);
     --color-status-ok: var(--green-400);
     --color-status-warn: var(--amber-400);
     --color-status-error: var(--red-400);
@@ -53,6 +55,7 @@
   --color-accent-hover: var(--blue-muted-light);
   --color-rule: var(--rule-dark);
   --color-selection: var(--blue-wash-dark);
+  --color-accent-faint: var(--blue-wash-dark);
   --color-status-ok: var(--green-400);
   --color-status-warn: var(--amber-400);
   --color-status-error: var(--red-400);

@@ -20,7 +20,11 @@ export async function EditorialSummary({ config }: Props) {
       <h3 className="text-section-label text-briefing-label uppercase font-sans">
         {config.briefingLabel}
       </h3>
-      <p className="text-briefing-text mt-2 leading-relaxed">{briefing.brief}</p>
+      <div className="max-w-prose border-l-2 border-accent-faint pl-5 mt-3">
+        <p className="text-briefing-text font-serif text-lg leading-relaxed">
+          {briefing.brief}
+        </p>
+      </div>
       <hr className="mt-6" />
     </section>
   );

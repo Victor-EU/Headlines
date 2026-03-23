@@ -14,7 +14,6 @@ export function Footer() {
       <p className="text-meta text-muted text-center">
         {PUBLICATIONS.join(" · ")}
       </p>
-      <p className="text-meta text-muted text-center mt-1">headlines.example.com</p>
     </footer>
   );
 }

@@ -22,7 +22,7 @@ export function LeadHeadline({ headline, config }: Props) {
       </h2>
       <p className="text-meta mt-2">
         <span className="text-source">{headline.source_name}</span>
-        <span className="text-meta"> · {formatTime(headline.published_at, config.timeFormat)}</span>
+        <span className="text-meta" suppressHydrationWarning> · {formatTime(headline.published_at, config.timeFormat)}</span>
       </p>
       {config.showAlsoReportedBy && headline.also_reported_by.length > 0 && (
         <p className="text-meta text-muted mt-1">

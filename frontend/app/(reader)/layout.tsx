@@ -12,7 +12,7 @@ export default function ReaderLayout({
   return (
     <AnalyticsProvider>
       <div className="max-w-content mx-auto px-gutter">
-        <div className="flex items-baseline justify-between">
+        <div className="flex items-baseline justify-between gap-4">
           <Masthead />
           <ThemeToggle />
         </div>

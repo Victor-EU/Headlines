@@ -22,10 +22,12 @@ export async function InFocus({ config }: Props) {
       <h3 className="text-section-label text-briefing-label uppercase font-sans">
         In Focus
       </h3>
-      <h4 className="text-headline font-serif mt-2">{briefing.focus_topic}</h4>
-      <p className="text-briefing-text mt-3 leading-relaxed">
-        {briefing.focus_body}
-      </p>
+      <div className="max-w-prose border-l-2 border-accent-faint pl-5 mt-2">
+        <h4 className="text-headline font-serif">{briefing.focus_topic}</h4>
+        <p className="text-briefing-text mt-3 font-serif text-lg leading-relaxed">
+          {briefing.focus_body}
+        </p>
+      </div>
       <hr className="mt-6" />
     </section>
   );
