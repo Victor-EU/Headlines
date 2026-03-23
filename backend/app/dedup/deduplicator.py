@@ -56,6 +56,7 @@ async def dedup_batch(
     total_input_tokens = 0
     total_output_tokens = 0
     failed = 0
+    semantic_fallback_used = 0
 
     for article in articles:
         total_processed += 1
@@ -97,10 +98,21 @@ async def dedup_batch(
             candidates = candidates[:max_candidates]
 
             if not candidates:
-                # No candidates — assign fresh cluster
-                article.cluster_id = uuid.uuid4()
-                clusters_created += 1
-                continue
+                if config.get("semantic_fallback", True):
+                    max_semantic = config.get("max_semantic_candidates", 15)
+                    fallback_sorted = sorted(
+                        recent_articles,
+                        key=lambda a: a.published_at,
+                        reverse=True,
+                    )[:max_semantic]
+                    if fallback_sorted:
+                        candidates = [(0.0, a) for a in fallback_sorted]
+                        semantic_fallback_used += 1
+
+                if not candidates:
+                    article.cluster_id = uuid.uuid4()
+                    clusters_created += 1
+                    continue
 
             # Phase 2: LLM confirmation
             article_data = {
@@ -199,6 +211,7 @@ async def dedup_batch(
         "duplicates_found": duplicates_found,
         "clusters_created": clusters_created,
         "clusters_updated": clusters_updated,
+        "semantic_fallback_used": semantic_fallback_used,
     }
 
 
