@@ -20,7 +20,13 @@ class Settings(BaseSettings):
             url = url.replace("postgres://", "postgresql://", 1)
         if url.startswith("postgresql://"):
             url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        # asyncpg doesn't accept sslmode as a URL param — strip it
+        url = url.replace("?sslmode=require", "").replace("&sslmode=require", "")
         return url
+
+    @property
+    def database_requires_ssl(self) -> bool:
+        return "sslmode=require" in self.DATABASE_URL
 
     model_config = {"env_file": ".env", "extra": "ignore"}
 

@@ -6,6 +6,7 @@ engine = create_async_engine(
     settings.async_database_url,
     pool_size=5,
     max_overflow=10,
+    **({"connect_args": {"ssl": True}} if settings.database_requires_ssl else {}),
 )
 
 async_session = async_sessionmaker(
