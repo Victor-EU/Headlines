@@ -1,9 +1,9 @@
 {
-  "project_id": "1afeddf2-11ea-4181-96ae-8068a3935a60",
-  "project_name": "headlines",
+  "project_id": "3401053c-adf1-4cb9-ad37-7306309d1e44",
+  "project_name": "Headlines",
   "project_slug": "headlines",
   "framework": "unknown",
   "provider": "vercel",
-  "detected_at": "2026-03-20T13:41:36Z",
-  "created_at": "2026-03-20T13:41:35.910Z"
+  "detected_at": "2026-03-23T13:01:00Z",
+  "created_at": "2026-03-23T13:01:00.361Z"
 }
