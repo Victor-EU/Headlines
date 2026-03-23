@@ -43,6 +43,7 @@ async def classify_openai(
             ClassificationItem(
                 article_id=item.get("article_id", ""),
                 categories=item.get("categories", []),
+                interest_score=item.get("interest_score", 3),
             )
         )
 

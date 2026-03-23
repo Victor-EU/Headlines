@@ -20,7 +20,7 @@ export async function SurfacePage({ config }: Props) {
     const [cats, leadResult] = await Promise.all([
       fetchCategories(config.categoryApiSurface),
       config.showLeadHeadline
-        ? fetchHeadlines({ surface: config.slug }).catch(() => null)
+        ? fetchHeadlines({ surface: config.slug, perPage: 1 }).catch(() => null)
         : Promise.resolve(null),
     ]);
     categories = cats;
@@ -32,7 +32,7 @@ export async function SurfacePage({ config }: Props) {
   // Round 2: per-category headline fetches (allSettled — one failed category doesn't crash the page)
   const categoryResults = await Promise.allSettled(
     categories.map((cat) =>
-      fetchHeadlines({ surface: config.slug, category: cat.slug }),
+      fetchHeadlines({ surface: config.slug, category: cat.slug, perPage: config.perPage }),
     ),
   );
 

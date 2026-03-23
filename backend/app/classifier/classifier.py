@@ -87,13 +87,14 @@ async def classify_batch(
                 total_output_tokens += llm_result.output_tokens
 
                 # Map results by article_id
-                result_map = {c.article_id: c.categories for c in llm_result.classifications}
+                result_map = {c.article_id: c for c in llm_result.classifications}
 
                 for article in batch:
                     total_processed += 1
                     article_id_str = str(article.id)
 
-                    cats = result_map.get(article_id_str, [])
+                    item = result_map.get(article_id_str)
+                    cats = item.categories if item else []
                     assigned = 0
 
                     for cat in cats:
@@ -117,6 +118,7 @@ async def classify_batch(
                             break
 
                     article.classified = True
+                    article.interest_score = item.interest_score if item else None
                     if assigned > 0:
                         total_classified += 1
                     else:

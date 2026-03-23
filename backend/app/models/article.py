@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING, List, Optional
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Text, UniqueConstraint
+from sqlalchemy import Boolean, DateTime, ForeignKey, Index, SmallInteger, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -51,6 +51,7 @@ class Article(TimestampMixin, Base):
     hidden: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     cluster_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), nullable=True)
     is_representative: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    interest_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
 
     source: Mapped["Source"] = relationship(back_populates="articles", lazy="raise")
     article_categories: Mapped[List["ArticleCategory"]] = relationship(

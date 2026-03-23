@@ -34,10 +34,12 @@ export async function fetchHeadlines(params: {
   surface: string;
   category?: string;
   page?: number;
+  perPage?: number;
 }): Promise<HeadlinesResponse> {
   const searchParams = new URLSearchParams({ surface: params.surface });
   if (params.category) searchParams.set("category", params.category);
   if (params.page) searchParams.set("page", String(params.page));
+  if (params.perPage) searchParams.set("per_page", String(params.perPage));
 
   return apiFetch<HeadlinesResponse>(`/api/headlines?${searchParams}`, {
     revalidate: params.surface === "learning" ? 1800 : 120,

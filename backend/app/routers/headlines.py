@@ -87,7 +87,10 @@ async def get_headlines(
 
     # Paginate
     offset = (page - 1) * per_page
-    q = q.order_by(Article.published_at.desc()).offset(offset).limit(per_page)
+    q = q.order_by(
+        Article.interest_score.desc().nulls_last(),
+        Article.published_at.desc(),
+    ).offset(offset).limit(per_page)
 
     result = await db.execute(q)
     articles = list(result.unique().scalars().all())
@@ -134,6 +137,7 @@ async def get_headlines(
             published_at=article.published_at,
             categories=cats,
             also_reported_by=also,
+            interest_score=article.interest_score,
         ))
 
     # Cache headers

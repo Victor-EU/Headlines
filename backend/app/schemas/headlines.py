@@ -27,6 +27,7 @@ class HeadlineItem(BaseModel):
     published_at: datetime
     categories: list[str] = []
     also_reported_by: list[AlsoReportedBy] = []
+    interest_score: int | None = None
 
 
 class HeadlinesResponse(BaseModel):

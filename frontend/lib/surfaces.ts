@@ -11,6 +11,7 @@ export type SurfaceConfig = {
   briefingLabel: string;
   briefingCadence: string;
   categoryApiSurface: string;
+  perPage: number;
 };
 
 export const SURFACES: Record<string, SurfaceConfig> = {
@@ -27,6 +28,7 @@ export const SURFACES: Record<string, SurfaceConfig> = {
     briefingLabel: "THE BRIEF",
     briefingCadence: "today",
     categoryApiSurface: "news",
+    perPage: 8,
   },
   learning: {
     slug: "learning",
@@ -41,6 +43,7 @@ export const SURFACES: Record<string, SurfaceConfig> = {
     briefingLabel: "THE LEARNING DIGEST",
     briefingCadence: "this week",
     categoryApiSurface: "learning",
+    perPage: 6,
   },
 };
 

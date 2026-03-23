@@ -15,6 +15,7 @@ export type HeadlineData = {
   published_at: string;
   categories: string[];
   also_reported_by: AlsoReportedBy[];
+  interest_score: number | null;
 };
 
 export type PaginationMeta = {

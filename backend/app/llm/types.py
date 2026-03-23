@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 class ClassificationItem:
     article_id: str
     categories: list[dict]  # [{"slug": "tech", "confidence": 0.9}]
+    interest_score: int = 3
 
 
 @dataclass

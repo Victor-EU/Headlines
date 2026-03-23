@@ -24,7 +24,7 @@ export function CategorySections({ sections: initialSections, config }: Props) {
   const abortRef = useRef<AbortController | null>(null);
 
   const loadMore = useCallback(
-    async (slug: string, nextPage: number) => {
+    async (slug: string, nextPage: number, perPage: number) => {
       if (loadingRef.current) return;
       loadingRef.current = true;
       setLoadingSection(slug);
@@ -38,6 +38,7 @@ export function CategorySections({ sections: initialSections, config }: Props) {
           surface: config.slug,
           category: slug,
           page: String(nextPage),
+          per_page: String(perPage),
         });
         const url = `${process.env.NEXT_PUBLIC_API_URL || ""}/api/headlines?${params}`;
         const res = await fetch(url, { signal: controller.signal });
@@ -92,6 +93,7 @@ export function CategorySections({ sections: initialSections, config }: Props) {
                   loadMore(
                     section.category.slug,
                     section.pagination.page + 1,
+                    section.pagination.per_page,
                   )
                 }
                 disabled={loadingSection === section.category.slug}
