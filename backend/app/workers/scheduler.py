@@ -101,6 +101,16 @@ async def _tick():
                     except Exception as e:
                         logger.error(f"Post-classification briefing check failed: {e}")
 
+                    try:
+                        async with async_session() as analysis_db:
+                            from app.editorial import generate_analysis
+                            result = await generate_analysis(analysis_db, trigger="post_classify")
+                            await analysis_db.commit()
+                            if result.get("status") == "success":
+                                logger.info("Post-classification analysis generated")
+                    except Exception as e:
+                        logger.error(f"Post-classification analysis check failed: {e}")
+
             except Exception as e:
                 logger.error(f"Error processing {source.name}: {e}")
                 await db.rollback()

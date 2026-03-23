@@ -51,7 +51,7 @@ async def generate_analysis(
     # Find the cluster with the most distinct sources in the last 24h
     cutoff = datetime.now(timezone.utc) - timedelta(hours=24)
     config = task.config or {}
-    min_sources = config.get("min_sources", 3)
+    min_sources = config.get("min_sources", 2)
 
     top_cluster_q = (
         select(
