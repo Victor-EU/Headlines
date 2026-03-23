@@ -24,10 +24,13 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     scheduler = None
     if settings.RUN_SCHEDULER:
-        from app.workers.scheduler import start_scheduler
+        try:
+            from app.workers.scheduler import start_scheduler
 
-        scheduler = await start_scheduler()
-        logger.info("Scheduler started in API process")
+            scheduler = await start_scheduler()
+            logger.info("Scheduler started in API process")
+        except Exception as e:
+            logger.error(f"Scheduler failed to start: {e} — API will serve without scheduler")
     yield
     if scheduler:
         scheduler.shutdown()
