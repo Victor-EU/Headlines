@@ -2,7 +2,7 @@ import type { BriefingResponse, CategoryItem, HeadlinesResponse } from "./types"
 
 function getBaseUrl(): string {
   if (typeof window === "undefined") {
-    return process.env.INTERNAL_API_URL || "http://api:8000";
+    return process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL || "http://api:8000";
   }
   return process.env.NEXT_PUBLIC_API_URL || "";
 }
