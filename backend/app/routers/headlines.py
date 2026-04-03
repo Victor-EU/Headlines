@@ -29,7 +29,7 @@ async def get_headlines(
     # Category slug redirect check
     if category:
         cat_exists = await db.execute(
-            select(Category).where(Category.slug == category, Category.active == True)
+            select(Category).where(Category.slug == category, Category.surface == surface, Category.active == True)
         )
         if not cat_exists.scalar_one_or_none():
             redirect = await db.execute(

@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = ""
     GOOGLE_AI_API_KEY: str = ""
     ADMIN_PASSWORD: str = "change-me"
+    JWT_SECRET: str = ""
     BRIEFING_TIMEZONE: str = "America/New_York"
     SLACK_WEBHOOK_URL: str = ""
     CORS_ORIGINS: str = "http://localhost:3000"

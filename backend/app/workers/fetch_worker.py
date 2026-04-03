@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 _last_batch_at: datetime | None = None
 BATCH_COOLDOWN_SECONDS = 60
+CONCURRENCY_LIMIT = 10
 
 
 async def start_batch_refresh(db: AsyncSession) -> dict:
@@ -36,10 +37,13 @@ async def start_batch_refresh(db: AsyncSession) -> dict:
     if not sources:
         return {"batch_id": batch_id, "sources_triggered": 0, "sources_skipped": 0}
 
+    sem = asyncio.Semaphore(CONCURRENCY_LIMIT)
+
     async def _scrape_one(source: Source):
-        from app.database import async_session
-        async with async_session() as session:
-            return await scrape(session, source, trigger="batch", batch_id=batch_id)
+        async with sem:
+            from app.database import async_session
+            async with async_session() as session:
+                return await scrape(session, source, trigger="batch", batch_id=batch_id)
 
     results = await asyncio.gather(
         *[_scrape_one(s) for s in sources],

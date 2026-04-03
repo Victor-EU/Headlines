@@ -11,7 +11,7 @@ class CategoryRedirect(Base):
 
     old_slug: Mapped[str] = mapped_column(String(100), primary_key=True)
     new_slug: Mapped[str] = mapped_column(String(100), nullable=False)
-    surface: Mapped[str] = mapped_column(Text, nullable=False)
+    surface: Mapped[str] = mapped_column(Text, primary_key=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),

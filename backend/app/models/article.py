@@ -52,6 +52,7 @@ class Article(TimestampMixin, Base):
     cluster_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), nullable=True)
     is_representative: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     interest_score: Mapped[Optional[int]] = mapped_column(SmallInteger, nullable=True)
+    classification_attempts: Mapped[int] = mapped_column(SmallInteger, nullable=False, default=0, server_default="0")
 
     source: Mapped["Source"] = relationship(back_populates="articles", lazy="raise")
     article_categories: Mapped[List["ArticleCategory"]] = relationship(

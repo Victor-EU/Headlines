@@ -22,7 +22,8 @@ async def login(body: LoginRequest):
         "sub": "admin",
         "exp": datetime.now(timezone.utc) + timedelta(hours=24),
     }
-    token = jwt.encode(payload, settings.ADMIN_PASSWORD, algorithm="HS256")
+    secret = settings.JWT_SECRET or settings.ADMIN_PASSWORD
+    token = jwt.encode(payload, secret, algorithm="HS256")
     return LoginResponse(token=token)
 
 
@@ -30,9 +31,10 @@ async def get_admin(
     credentials: HTTPAuthorizationCredentials = Security(security),
 ) -> str:
     try:
+        secret = settings.JWT_SECRET or settings.ADMIN_PASSWORD
         payload = jwt.decode(
             credentials.credentials,
-            settings.ADMIN_PASSWORD,
+            secret,
             algorithms=["HS256"],
         )
         return payload["sub"]

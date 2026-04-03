@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { adminFetch } from "@/lib/admin-api";
+import { adminFetch, getToken } from "@/lib/admin-api";
 import { useAdminData } from "@/app/admin/_hooks/use-admin-data";
 import { AdminPageSkeleton } from "@/components/Skeleton";
 import { CategorySurfaceList } from "./category-surface-list";
@@ -166,12 +166,13 @@ export default function CategoriesPage() {
 
   async function handleFlushCache() {
     try {
-      const secret = process.env.NEXT_PUBLIC_REVALIDATION_SECRET || "";
-      await fetch("/api/revalidate", {
+      const token = getToken();
+      if (!token) return;
+      const res = await fetch("/api/revalidate", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ secret }),
+        headers: { Authorization: `Bearer ${token}` },
       });
+      if (!res.ok) throw new Error("Failed");
       alert("Cache flushed");
     } catch {
       alert("Failed to flush cache");

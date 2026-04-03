@@ -20,6 +20,7 @@ from .prompts import (
 logger = logging.getLogger(__name__)
 
 BATCH_SIZE = 15
+MAX_CLASSIFICATION_ATTEMPTS = 3
 
 
 async def classify_batch(
@@ -126,10 +127,11 @@ async def classify_batch(
 
             except Exception as e:
                 logger.error(f"Classification batch failed: {e}")
-                # Mark batch as classified anyway to avoid infinite retry
                 for article in batch:
-                    article.classified = True
+                    article.classification_attempts = (article.classification_attempts or 0) + 1
                     total_processed += 1
+                    if article.classification_attempts >= MAX_CLASSIFICATION_ATTEMPTS:
+                        article.classified = True  # Give up after max retries
                     total_failed += 1
 
     # Write pipeline_log

@@ -78,7 +78,7 @@ async def list_categories(db: AsyncSession = Depends(get_db)):
 @router.post("/categories", response_model=CategoryAdminResponse)
 async def create_category(body: CategoryCreate, db: AsyncSession = Depends(get_db)):
     slug = slugify(body.name)
-    existing = await db.execute(select(Category).where(Category.slug == slug))
+    existing = await db.execute(select(Category).where(Category.slug == slug, Category.surface == body.surface))
     if existing.scalar_one_or_none():
         raise HTTPException(400, f"Category slug '{slug}' already exists")
 
@@ -137,7 +137,7 @@ async def update_category(
 
         # Check slug uniqueness
         existing = await db.execute(
-            select(Category).where(Category.slug == new_slug, Category.id != category_id)
+            select(Category).where(Category.slug == new_slug, Category.surface == category.surface, Category.id != category_id)
         )
         if existing.scalar_one_or_none():
             raise HTTPException(400, f"Category slug '{new_slug}' already exists")
@@ -412,7 +412,7 @@ async def _run_reclassify(job_id: str, since: str, surface: str | None):
             await db.execute(
                 update(Article)
                 .where(Article.id.in_(article_ids))
-                .values(classified=False)
+                .values(classified=False, classification_attempts=0)
             )
             await db.flush()
 

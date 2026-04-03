@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, Query, Response
 from sqlalchemy import select
@@ -25,7 +25,7 @@ async def get_briefing(
     elif type == "weekly_learning":
         # Default to current week's Monday
         today = date.today()
-        briefing_date = today - __import__("datetime").timedelta(days=today.weekday())
+        briefing_date = today - timedelta(days=today.weekday())
     else:
         briefing_date = date.today()
 
