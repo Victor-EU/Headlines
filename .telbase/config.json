@@ -1,30 +1,29 @@
 {
-  "project_id": "bcf61a63-11ce-47ab-992e-fc5aaafd5d31",
-  "project_name": "headlines",
+  "project_id": "6893c723-e232-4215-b6a0-7976e1c171c4",
+  "project_name": "Headlines",
   "project_slug": "headlines",
-  "detected_at": "2026-03-23T14:16:26Z",
-  "created_at": "2026-03-23T13:39:24.508Z",
+  "created_at": "2026-03-24T15:14:14.929Z",
   "multi_service": true,
   "services": [
     {
-      "service_id": "604f2a3a-3fdd-4426-8591-64245bdd7091",
+      "service_id": "d9787a56-a9c5-4284-bdea-702e1fa58649",
       "name": "backend",
       "slug": "headlines-api",
       "path": "./backend",
       "service_role": "backend",
       "framework": "fastapi",
       "provider": "gcp",
-      "last_deploy_hash": "7441d1154c92885c7d8a1d04cfa11e4d72217762574c2ef4505691bf70b7f574"
+      "last_deploy_hash": "373c7ce14e0f027d4a80a43a9f36de44c2a3a4a26721d887b36899821849333f"
     },
     {
-      "service_id": "08516601-1fd7-4e39-b5bc-d4b0ab6d5036",
+      "service_id": "425e0d01-0972-468f-b881-8965a2a35742",
       "name": "frontend",
       "slug": "headlines",
       "path": "./frontend",
       "service_role": "frontend",
       "framework": "nextjs",
       "provider": "vercel",
-      "last_deploy_hash": "eb652fe993b6240211f1e683f3e185ef954731f556a15e64c181ba798328a3d3"
+      "last_deploy_hash": "20cf7083999dbc312559025a917a14aa6cca4abf823243ec4f2ac98531d371c7"
     }
   ]
 }

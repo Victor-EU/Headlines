@@ -22,7 +22,11 @@ def get_url():
     # Normalize for sync driver: postgres:// → postgresql://, strip +asyncpg
     if url.startswith("postgres://"):
         url = url.replace("postgres://", "postgresql://", 1)
-    return url.replace("+asyncpg", "")
+    url = url.replace("+asyncpg", "")
+    # Ensure SSL for remote databases (e.g. Neon) — psycopg2 needs explicit sslmode
+    if "sslmode" not in url and "neon.tech" in url:
+        url += "?sslmode=require" if "?" not in url else "&sslmode=require"
+    return url
 
 
 def run_migrations_offline():
